@@ -9,8 +9,14 @@ const GoalInput = props => {
   }
 
   const addGoalHandler = () => {
-    props.setCourseGoals(courseGoals => [...courseGoals, { id: Math.random().toString(), value: enteredGoal }])
+    props.setCourseGoals(courseGoals =>
+      [...courseGoals, { id: Math.random().toString(), value: enteredGoal }]
+    )
     setEnteredGoal('')
+    props.onAddGoal(false)
+  }
+
+  const cancelGoalHandler = () => {
     props.onAddGoal(false)
   }
 
@@ -26,7 +32,10 @@ const GoalInput = props => {
           style={styles.input}
           onChangeText={goalInputHandler}
           value={enteredGoal} />
-        <Button title="ADD" onPress={addGoalHandler} />
+        <View style={styles.buttonContainer}>
+          <Button title="Add" onPress={addGoalHandler} />
+          <Button title="Cancel" color="red" onPress={cancelGoalHandler} />
+        </View>
       </View>
     </Modal>
   )
@@ -44,6 +53,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 5,
     width: '80%'
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around'
   }
 })
 
